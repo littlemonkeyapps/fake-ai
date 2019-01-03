@@ -1,0 +1,49 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h1>
+        {{ title }}
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <form>
+        <div class="form-group">
+          <select class="form-control" #voice>
+            <option *ngFor="let voice of voices" value={{voice.id}}>
+              {{voice.name}} - ({{voice.gender}} / {{voice.lang}})
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm">
+      <audio controls="false" id="audio"></audio>
+    </div>
+  </div>
+  <HR>
+  <h2>
+    New phrase
+  </h2>
+    <div class="row">
+      <div class="col-md-10">
+        <input #newPhrase type="text"  autocomplete="off" (keyup.enter)="addPhrase(newPhrase.value, voice.value); newPhrase.value='';" class="form-control" id="exampleFormControlInput1" placeholder="Kimalio Slushies!">
+
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-success" (click)="addPhrase(newPhrase.value, voice.value)">Add phrase</button>
+      </div>
+    </div>
+  <HR>
+  <h2>
+    Existing phrases 
+    <button class="btn btn-danger btn-sml" (click)="clearPhrases()">Delete all</button>
+  </h2>
+  <div class="row">
+    <div class="col-sm" >
+      <button *ngFor="let phrase of ttsService.phrases" class="btn btn-info phrase-button-col" (click)="addPhrase(phrase.sentence, voice.value)">{{phrase.sentence}}</button>
+    </div>
+  </div>
+</div>
